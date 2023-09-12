@@ -6,7 +6,7 @@ const app = express();
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 
-// routers
+// ROUTERS
 import jobRouter from './routes/jobRouter.js';
 
 if (process.env.NODE_ENV === 'development') {

@@ -8,6 +8,10 @@ import mongoose from 'mongoose';
 
 // ROUTERS
 import jobRouter from './routes/jobRouter.js';
+import authRouter from './routes/authRouter.js';
+
+// MIDDLEWARE
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -19,17 +23,10 @@ app.get('/', (req, res) => {
   res.send('Hello');
 });
 
-app.post('/', (req, res) => {
-  console.log(req);
-  res.json({ message: 'data received', data: req.body });
-});
-
 app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/auth', authRouter);
 
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).json({ msg: 'something went wrong' });
-});
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5100;
 
